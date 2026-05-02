@@ -1,0 +1,11 @@
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+ENV PORT=3007
+ENV HOSTNAME=0.0.0.0
+ARG NEXT_PUBLIC_API_URL=http://localhost:3005
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+EXPOSE 3007
+CMD ["npm", "run", "dev"]

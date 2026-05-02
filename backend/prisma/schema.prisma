@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  role         Role     @default(ADMIN)
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model School {
+  id          String   @id @default(uuid())
+  name        String
+  province    String
+  affiliation String
+  level       String
+  logoUrl     String?
+  isPublished Boolean  @default(false)
+  scores      Score?
+  ranking     Ranking?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Score {
+  id       String @id @default(uuid())
+  schoolId String @unique
+  school   School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  a1 Float @default(0)
+  a2 Float @default(0)
+  a3 Float @default(0)
+  a4 Float @default(0)
+  a5 Float @default(0)
+  b1 Float @default(0)
+  b2 Float @default(0)
+  b3 Float @default(0)
+  b4 Float @default(0)
+  b5 Float @default(0)
+  c1 Float @default(0)
+  c2 Float @default(0)
+  c3 Float @default(0)
+  c4 Float @default(0)
+  c5 Float @default(0)
+  d1 Float @default(0)
+  d2 Float @default(0)
+  d3 Float @default(0)
+  d4 Float @default(0)
+  d5 Float @default(0)
+  e1 Float @default(0)
+  e2 Float @default(0)
+  e3 Float @default(0)
+  e4 Float @default(0)
+  e5 Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Ranking {
+  id         String   @id @default(uuid())
+  schoolId   String   @unique
+  school     School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  scoreA     Float
+  scoreB     Float
+  scoreC     Float
+  scoreD     Float
+  scoreE     Float
+  totalScore Float
+  level      String
+  rank       Int
+  updatedAt  DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+}

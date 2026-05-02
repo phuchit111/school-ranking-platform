@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/prisma:/app/prisma
+      - uploads_data:/app/uploads
+
+  frontend:
+    build:
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/src:/app/src
