@@ -35,29 +35,36 @@ Full-stack school ranking app: Next.js 14 (JavaScript), Express, PostgreSQL 16, 
 
 Stack uses JavaScript only (no TypeScript). Types are documented with JSDoc in `frontend/src/types/index.js`.
 
-## Deploy: Vercel + Railway
+## Deploy: Vercel + Supabase + API
 
-**แนวทาง:** Frontend บน Vercel · API + DB บน Railway
+**แนวทาง:** Frontend บน **Vercel** · ฐานข้อมูลเป็น **PostgreSQL บน Supabase** (แทน Postgres บน PaaS อื่นได้) · **Backend (Express)** ต้องมีที่โฮสต์แยก เช่น Railway, Render, Fly.io หรือ VPS — เพราะ Supabase ไม่ได้รันโฟลเดอร์ `backend` ให้
 
-### Railway (API + Postgres)
+### Supabase (ฐานข้อมูล)
 
-1. สร้างโปรเจกต์ Railway → เพิ่ม **PostgreSQL** → copy `DATABASE_URL` ไปที่ service ของ backend
-2. **Deploy** จาก GitHub โดยตั้ง **Root Directory** เป็น `backend` (ใช้ `backend/Dockerfile` ที่รัน `migrate deploy` + `seed` + `node`)
-3. ตั้ง **Public Networking** ให้ได้ URL เช่น `https://xxx.up.railway.app`
-4. ตัวแปรสภาพแวดล้อมสำคัญ:
-   - `DATABASE_URL` — จาก plugin Postgres
-   - `FRONTEND_URL` — URL ของ Vercel (ถ้ามีหลาย URL ใช้คอมมาคั่น เช่น production + preview)  
+1. สร้างโปรเจกต์ใน [Supabase](https://supabase.com) → **Project Settings → Database**
+2. คัดลอก **Connection string** แบบ URI มาใส่เป็น `DATABASE_URL` ใน environment ของ service ที่รัน API (ไม่ใส่ใน repo)
+3. รัน migration ชี้ DB นี้ (จากเครื่องหรือ CI):  
+   `cd backend && npx prisma migrate deploy`
+4. **Direct vs Pooling:** Express รันยาวบน container/VPS มักใช้ **Direct** ได้ตามปกติ ถ้าใช้ serverless หลาย instance ให้อ่าน [Prisma + Supabase](https://www.prisma.io/docs/guides/database/supabase) เรื่อง pooler (PgBouncer) และพารามิเตอร์ที่แนะนำ
+
+### Backend (API)
+
+1. Deploy จาก GitHub โดยตั้ง **Root Directory** เป็น `backend` (เช่น บน Railway/Render/Fly — ใช้ `backend/Dockerfile` ที่รัน `migrate deploy` + `seed` + `node` ได้ถ้าแพลตฟอร์มรองรับ Docker)
+2. ตั้ง `DATABASE_URL` ให้ชี้ Supabase (ตามด้านบน)
+3. เปิด **Public URL** ของ API (เช่น `https://xxx.up.railway.app` หรือโดเมนของผู้ให้บริการอื่น)
+4. ตัวแปรสำคัญบน API:
+   - `FRONTEND_URL` — URL ของ Vercel (หลาย origin คั่นด้วยคอมมาได้ เช่น production + preview)  
      ตัวอย่าง: `https://your-app.vercel.app,https://your-app-git-dev.vercel.app`
    - `JWT_SECRET`, `JWT_REFRESH_SECRET` — สุ่มยาว ๆ ใน production
    - `NODE_ENV=production`
    - `ADMIN_EMAIL` / `ADMIN_PASSWORD` — บัญชีแรก (seed ใช้ `upsert` ต่อรอบ deploy)
-5. **ไฟล์อัปโหลด:** ดิสก์คอนเทนเนอร์ Railway เป็นแบบชั่วคราว — ถ้าต้องการเก็บถาวร ให้เพิ่ม **Volume** mount ไปที่ `UPLOAD_PATH` (ค่าเริ่มต้นใน Docker คือ `/app/uploads`) หรือย้ายไป object storage ภายหลัง
+5. **ไฟล์อัปโหลด:** ดิสก์บน PaaS มักไม่ถาวร — ใช้ **Volume** ที่ `UPLOAD_PATH` (ใน Docker ค่าเริ่มต้นคือ `/app/uploads`) หรือย้ายไป **Supabase Storage** / object storage ภายหลัง (ต้องแก้โค้ด upload)
 
 ### Vercel (Next.js)
 
 1. Import repo → ตั้ง **Root Directory** เป็น `frontend`
 2. **Environment Variables** (ต้องมีตอน build และ runtime):
-   - `NEXT_PUBLIC_API_URL` — URL สาธารณะของ Railway API **ไม่มี slash ท้าย** (เช่น `https://xxx.up.railway.app`)  
+   - `NEXT_PUBLIC_API_URL` — URL สาธารณะของ API **ไม่มี slash ท้าย**  
      ใช้ทั้งฝั่งเบราว์เซอร์เรียก API และใน `next.config.js` rewrites / รูปจาก `/uploads`
 3. Build มาตรฐาน `npm run build` / output standalone ตามที่ repo ตั้งไว้
 
