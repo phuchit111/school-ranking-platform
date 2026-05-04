@@ -1,10 +1,25 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate.middleware');
 const { authMiddleware } = require('../middleware/auth.middleware');
 const authService = require('./auth.service');
 
 const router = express.Router();
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 40,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const forgotLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 /**
  * @openapi
@@ -24,6 +39,7 @@ const router = express.Router();
  */
 router.post(
   '/login',
+  loginLimiter,
   body('email').isEmail(),
   body('password').isString().notEmpty(),
   validate,
@@ -31,6 +47,36 @@ router.post(
     try {
       const tokens = await authService.login(req.body.email, req.body.password);
       res.json(tokens);
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
+router.post(
+  '/forgot-password',
+  forgotLimiter,
+  body('email').isEmail(),
+  validate,
+  async (req, res, next) => {
+    try {
+      const result = await authService.requestPasswordReset(req.body.email);
+      res.json(result);
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
+router.post(
+  '/reset-password',
+  body('token').isString().notEmpty(),
+  body('password').isString().isLength({ min: 6 }),
+  validate,
+  async (req, res, next) => {
+    try {
+      const result = await authService.resetPassword(req.body.token, req.body.password);
+      res.json(result);
     } catch (e) {
       next(e);
     }
@@ -50,6 +96,16 @@ router.post('/logout', authMiddleware, async (req, res, next) => {
   try {
     await authService.logout(req.user.sub);
     res.json({ ok: true });
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/me', authMiddleware, async (req, res, next) => {
+  try {
+    const user = await authService.me(req.user.sub);
+    if (!user) return res.status(404).json({ error: 'Not found' });
+    res.json(user);
   } catch (e) {
     next(e);
   }

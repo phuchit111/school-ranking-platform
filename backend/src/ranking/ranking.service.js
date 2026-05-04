@@ -1,4 +1,5 @@
 const prisma = require('../prisma');
+const { applySectorFilter } = require('../utils/scopeFilters');
 
 function catSum(score, letter) {
   let s = 0;
@@ -25,11 +26,16 @@ function computeTotals(scoreRow) {
 }
 
 async function recalculateAll() {
-  const scores = await prisma.score.findMany({ include: { school: true } });
-  const ranked = scores.map((row) => ({
-    schoolId: row.schoolId,
-    ...computeTotals(row),
-  }));
+  const schools = await prisma.school.findMany({
+    include: { scores: true },
+  });
+  const ranked = schools.map((school) => {
+    const row = school.scores ?? {};
+    return {
+      schoolId: school.id,
+      ...computeTotals(row),
+    };
+  });
   ranked.sort((a, b) => b.totalScore - a.totalScore);
   await prisma.$transaction(async (tx) => {
     await tx.ranking.deleteMany({});
@@ -64,10 +70,17 @@ function buildWhere(filters) {
     isPublished: true,
   };
   if (filters.province) schoolWhere.province = filters.province;
-  if (filters.affiliation) schoolWhere.affiliation = filters.affiliation;
   if (filters.level) schoolWhere.level = filters.level;
   if (filters.search) {
-    schoolWhere.name = { contains: filters.search, mode: 'insensitive' };
+    schoolWhere.OR = [
+      { name: { contains: filters.search, mode: 'insensitive' } },
+      { nameEn: { contains: filters.search, mode: 'insensitive' } },
+    ];
+  }
+  if (filters.sector) {
+    applySectorFilter(schoolWhere, filters.sector);
+  } else if (filters.affiliation) {
+    schoolWhere.affiliation = filters.affiliation;
   }
   return { school: schoolWhere };
 }
@@ -80,6 +93,7 @@ async function listRanking(query) {
   const filters = {
     province: query.province || '',
     affiliation: query.affiliation || '',
+    sector: query.sector || '',
     level: query.level || '',
     search: query.search || '',
   };

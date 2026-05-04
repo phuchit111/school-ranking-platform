@@ -1,22 +1,31 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { PROVINCE_FILTER_OPTIONS } from '@/lib/scope';
 
-const PROVINCES = ['ทั้งหมด', 'กรุงเทพมหานคร', 'เชียงใหม่', 'ขอนแก่น', 'สงขลา', 'นครราชสีมา'];
-const AFFILIATIONS = ['ทั้งหมด', 'สพฐ.', 'อปท.', 'เอกชน', 'สช.'];
-const LEVELS = ['ทั้งหมด', 'ประถมศึกษา', 'มัธยมศึกษา', 'อาชีวศึกษา'];
+const LEVEL_OPTIONS = [
+  { value: '', label: 'ทั้งหมด (ระดับ)' },
+  { value: 'ประถมศึกษา', label: 'ประถมศึกษา' },
+  { value: 'มัธยมศึกษา', label: 'มัธยมศึกษา' },
+];
+
+const SECTOR_OPTIONS = [
+  { value: '', label: 'ทั้งหมด (สังกัด)' },
+  { value: 'government', label: 'ภาครัฐ (สพฐ., อปท.)' },
+  { value: 'private', label: 'เอกชน (เอกชน, สช.)' },
+];
 
 export default function RankingFilters({ onChange }) {
   const [filters, setFilters] = useState({
     province: '',
-    affiliation: '',
+    sector: '',
     level: '',
     search: '',
   });
   const debounceRef = useRef(null);
 
   function update(key, value) {
-    const next = { ...filters, [key]: value === 'ทั้งหมด' ? '' : value };
+    const next = { ...filters, [key]: value };
     setFilters(next);
     if (key === 'search') {
       clearTimeout(debounceRef.current);
@@ -24,6 +33,12 @@ export default function RankingFilters({ onChange }) {
     } else {
       onChange(next);
     }
+  }
+
+  function updateSector(value) {
+    const next = { ...filters, sector: value };
+    setFilters(next);
+    onChange(next);
   }
 
   return (
@@ -35,27 +50,39 @@ export default function RankingFilters({ onChange }) {
         onChange={(e) => update('search', e.target.value)}
         className="border rounded px-3 py-2 text-sm w-48"
       />
-      {[
-        ['province', PROVINCES],
-        ['affiliation', AFFILIATIONS],
-        ['level', LEVELS],
-      ].map(([key, opts]) => {
-        const val = filters[key] || 'ทั้งหมด';
-        return (
-          <select
-            key={key}
-            value={val}
-            onChange={(e) => update(key, e.target.value)}
-            className="border rounded px-3 py-2 text-sm"
-          >
-            {opts.map((o) => (
-              <option key={o} value={o}>
-                {o}
-              </option>
-            ))}
-          </select>
-        );
-      })}
+      <select
+        value={filters.province}
+        onChange={(e) => update('province', e.target.value)}
+        className="border rounded px-3 py-2 text-sm"
+      >
+        {PROVINCE_FILTER_OPTIONS.map((o) => (
+          <option key={o.value || 'all'} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <select
+        value={filters.level}
+        onChange={(e) => update('level', e.target.value)}
+        className="border rounded px-3 py-2 text-sm"
+      >
+        {LEVEL_OPTIONS.map((o) => (
+          <option key={o.value || 'all'} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <select
+        value={filters.sector}
+        onChange={(e) => updateSector(e.target.value)}
+        className="border rounded px-3 py-2 text-sm"
+      >
+        {SECTOR_OPTIONS.map((o) => (
+          <option key={o.value || 'all'} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

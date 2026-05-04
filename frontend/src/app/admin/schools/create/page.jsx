@@ -26,7 +26,7 @@ export default function CreateSchoolPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-4 mb-4">
         <Link href="/admin/schools" className="text-sm text-blue-600 hover:underline">
           ← กลับ
         </Link>

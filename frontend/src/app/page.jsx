@@ -11,9 +11,12 @@ export default function HomePage() {
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <h1 className="text-3xl font-bold">อันดับโรงเรียนทั่วประเทศ</h1>
-        <Link href="/ranking" className="text-blue-600 hover:underline text-sm">
-          หน้าตารางอันดับเต็ม
+        <h1 className="text-3xl font-bold">อันดับโรงเรียน</h1>
+        <Link
+          href="/school/register"
+          className="text-sm font-medium text-white bg-slate-800 hover:bg-slate-900 rounded-lg px-4 py-2"
+        >
+          ลงทะเบียนโรงเรียน
         </Link>
       </div>
       <Top10Highlight />

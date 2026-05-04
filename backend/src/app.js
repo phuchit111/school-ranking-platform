@@ -13,8 +13,12 @@ const schoolsRouter = require('./schools/schools.router');
 const scoresRouter = require('./scores/scores.router');
 const rankingRouter = require('./ranking/ranking.router');
 const uploadRouter = require('./upload/upload.router');
+const importRouter = require('./import.router');
+const adminMetaRouter = require('./admin/admin.router');
+const schoolApplicationsRouter = require('./school-applications/school-applications.router');
 
 const app = express();
+app.set('trust proxy', 1);
 
 const uploadPath = process.env.UPLOAD_PATH || path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadPath)) {
@@ -48,10 +52,13 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/uploads', express.static(uploadPath));
 
 app.use('/api/auth', authRouter);
+app.use('/api/school-applications', schoolApplicationsRouter);
 app.use('/api/schools', schoolsRouter);
 app.use('/api/scores', scoresRouter);
 app.use('/api/ranking', rankingRouter);
 app.use('/api/upload', uploadRouter);
+app.use('/api/import', importRouter);
+app.use('/api/admin', adminMetaRouter);
 
 app.get('/api/v1/ranking', async (req, res, next) => {
   try {

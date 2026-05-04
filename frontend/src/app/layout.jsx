@@ -3,7 +3,8 @@ import { Toaster } from 'sonner';
 
 export const metadata = {
   title: 'School Ranking Platform',
-  description: 'อันดับโรงเรียนทั่วประเทศ',
+  description:
+    'พื้นที่นำร่อง กรุงเทพมหานคร และจังหวัดสมุทรปราการ — โรงเรียนประถมศึกษาและมัธยมศึกษา ภาครัฐและเอกชน',
 };
 
 export default function RootLayout({ children }) {

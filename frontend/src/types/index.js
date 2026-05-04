@@ -2,13 +2,45 @@
  * @typedef {Object} School
  * @property {string} id
  * @property {string} name
+ * @property {string} nameEn
  * @property {string} province
  * @property {string} affiliation
  * @property {string} level
+ * @property {string} website
+ * @property {string} contact
  * @property {string|null} logoUrl
+ * @property {string|null} [bannerUrl]
+ * @property {string|null} [certificatePdfUrl]
+ * @property {string} [description]
+ * @property {string} [address]
+ * @property {string} [phone]
+ * @property {string} [facebookUrl]
+ * @property {string} [lineId]
  * @property {boolean} isPublished
  * @property {Ranking} [ranking]
  * @property {Score} [scores]
+ * @property {SchoolGalleryImage[]} [galleryImages]
+ * @property {SchoolCertificate[]} [certificates]
+ */
+
+/**
+ * @typedef {Object} SchoolGalleryImage
+ * @property {string} id
+ * @property {string} schoolId
+ * @property {string} url
+ * @property {string} caption
+ * @property {number} sortOrder
+ * @property {string} createdAt
+ */
+
+/**
+ * @typedef {Object} SchoolCertificate
+ * @property {string} id
+ * @property {string} schoolId
+ * @property {string} title
+ * @property {string} fileUrl
+ * @property {'image'|'pdf'} fileType
+ * @property {string} createdAt
  */
 
 /**

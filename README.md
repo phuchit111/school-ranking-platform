@@ -2,6 +2,8 @@
 
 Full-stack school ranking app: Next.js 14 (JavaScript), Express, PostgreSQL 16, Prisma, JWT, Docker.
 
+**ขอบเขตนำร่อง (1.6):** พื้นที่ กรุงเทพมหานคร และจังหวัดสมุทรปราการ · กลุ่มเป้าหมาย โรงเรียนประถมศึกษาและมัธยมศึกษา ทั้งภาครัฐและเอกชน
+
 ## Quick start
 
 1. Copy environment file:

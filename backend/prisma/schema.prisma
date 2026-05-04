@@ -12,23 +12,103 @@ model User {
   email        String   @unique
   password     String
   role         Role     @default(ADMIN)
+  schoolId     String?
+  school       School?  @relation(fields: [schoolId], references: [id], onDelete: SetNull)
   refreshToken String?
+  passwordResetToken   String?   @unique
+  passwordResetExpires DateTime?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  reportAcknowledgments ReportAcknowledgment[]
 }
 
 model School {
-  id          String   @id @default(uuid())
-  name        String
-  province    String
-  affiliation String
-  level       String
-  logoUrl     String?
-  isPublished Boolean  @default(false)
-  scores      Score?
-  ranking     Ranking?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String                @id @default(uuid())
+  name              String
+  nameKey           String                @unique
+  nameEn            String                @default("")
+  province          String
+  affiliation       String
+  level             String
+  website           String                @default("")
+  contact           String                @default("")
+  logoUrl           String?
+  bannerUrl         String?
+  description       String                @default("")
+  address           String                @default("")
+  phone             String                @default("")
+  facebookUrl       String                @default("")
+  lineId            String                @default("")
+  certificatePdfUrl String?
+  isPublished       Boolean               @default(false)
+  scores            Score?
+  ranking           Ranking?
+  users             User[]
+  evidence          EvidenceFile[]
+  reportAck         ReportAcknowledgment?
+  galleryImages     SchoolGalleryImage[]
+  certificates      SchoolCertificate[]
+  applications      SchoolApplication[]
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actorId   String?
+  action    String
+  entity    String?
+  entityId  String?
+  meta      Json?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actorId])
+}
+
+model SchoolGalleryImage {
+  id        String   @id @default(uuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  url       String
+  caption   String   @default("")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([schoolId, sortOrder])
+}
+
+model SchoolCertificate {
+  id        String   @id @default(uuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  title     String   @default("")
+  fileUrl   String
+  fileType  String   @default("image")
+  createdAt DateTime @default(now())
+
+  @@index([schoolId, createdAt])
+}
+
+model EvidenceFile {
+  id           String   @id @default(uuid())
+  schoolId     String
+  school       School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  originalName String
+  storedName   String
+  mimeType     String
+  createdAt    DateTime @default(now())
+}
+
+model ReportAcknowledgment {
+  id             String   @id @default(uuid())
+  schoolId       String   @unique
+  school         School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  acknowledgedAt DateTime @default(now())
 }
 
 model Score {
@@ -83,4 +163,35 @@ model Ranking {
 
 enum Role {
   ADMIN
+  SCHOOL_ADMIN
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model SchoolApplication {
+  id                 String             @id @default(uuid())
+  schoolName         String
+  nameEn             String             @default("")
+  province           String
+  affiliation        String
+  level              String
+  coordinatorName    String
+  coordinatorEmail  String
+  coordinatorPhone   String             @default("")
+  message            String             @default("")
+  status             ApplicationStatus  @default(PENDING)
+  adminNote          String             @default("")
+  processedAt        DateTime?
+  processedById      String?
+  schoolId           String?
+  school             School?            @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([status, createdAt])
+  @@index([coordinatorEmail])
 }

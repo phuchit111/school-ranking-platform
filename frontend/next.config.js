@@ -19,6 +19,9 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [{ source: '/ranking', destination: '/', permanent: true }];
+  },
   async rewrites() {
     return [
       {

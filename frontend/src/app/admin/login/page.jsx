@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import { setTokens } from '@/lib/auth';
@@ -18,7 +19,11 @@ export default function LoginPage() {
       const { data } = await api.post('/api/auth/login', form);
       setTokens(data.accessToken, data.refreshToken);
       toast.success('เข้าสู่ระบบสำเร็จ');
-      router.push('/admin/dashboard');
+      if (data.user?.role === 'SCHOOL_ADMIN') {
+        router.push('/school/dashboard');
+      } else {
+        router.push('/admin/dashboard');
+      }
     } catch {
       toast.error('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
     } finally {
@@ -56,6 +61,11 @@ export default function LoginPage() {
         >
           {loading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
         </button>
+        <p className="text-center text-sm">
+          <Link href="/admin/forgot-password" className="text-blue-600 hover:underline">
+            ลืมรหัสผ่าน
+          </Link>
+        </p>
       </form>
     </div>
   );

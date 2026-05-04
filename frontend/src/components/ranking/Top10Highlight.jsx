@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import api from '@/lib/api';
 
 const MEDAL_BG = {
@@ -21,15 +22,22 @@ export default function Top10Highlight() {
       <h2 className="text-xl font-semibold mb-3">🏆 Top 10 โรงเรียน</h2>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {top10.map((r, i) => (
-          <div
+          <Link
             key={r.id}
-            className={`border-l-4 rounded p-3 text-sm ${MEDAL_BG[i] || 'bg-white border-gray-200'}`}
+            href={`/schools/${r.school.id}`}
+            className={`block border-l-4 rounded p-3 text-sm transition hover:ring-2 hover:ring-blue-200 ${MEDAL_BG[i] || 'bg-white border-gray-200'}`}
           >
             <div className="font-bold text-lg">#{r.rank}</div>
-            <div className="font-medium truncate">{r.school.name}</div>
+            <div className="font-medium truncate text-blue-800" title={r.school.nameEn || undefined}>
+              {r.school.name}
+            </div>
+            {r.school.nameEn?.trim() ? (
+              <div className="text-gray-500 text-xs truncate">{r.school.nameEn}</div>
+            ) : null}
             <div className="text-gray-500 text-xs">{r.school.province}</div>
             <div className="mt-1 font-semibold">{r.totalScore?.toFixed(2)} คะแนน</div>
-          </div>
+            <span className="mt-2 inline-block text-xs text-blue-600">ดูรายละเอียด →</span>
+          </Link>
         ))}
       </div>
     </div>

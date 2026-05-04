@@ -85,7 +85,12 @@ export default function AdminSchoolsPage() {
           <tbody>
             {rows.map((s) => (
               <tr key={s.id} className="border-t">
-                <td className="p-3 font-medium">{s.name}</td>
+                <td className="p-3">
+                  <div className="font-medium">{s.name}</div>
+                  {s.nameEn?.trim() ? (
+                    <div className="text-xs text-gray-500 font-normal">{s.nameEn}</div>
+                  ) : null}
+                </td>
                 <td className="p-3">{s.province}</td>
                 <td className="p-3">
                   <button
