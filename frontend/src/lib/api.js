@@ -18,9 +18,16 @@ api.interceptors.response.use(
   async (err) => {
     if (err.response?.status === 401) {
       try {
+        const url = err.config?.url || '';
+        if (url.includes('/api/auth/refresh')) {
+          throw new Error('refresh failed');
+        }
         const match = document.cookie.match(/refreshToken=([^;]+)/);
         if (match && err.config) {
-          const { data } = await axios.post('/api/auth/refresh', {
+          const base = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+          const refreshPath = '/api/auth/refresh';
+          const refreshUrl = base ? `${base}${refreshPath}` : refreshPath;
+          const { data } = await axios.post(refreshUrl, {
             refreshToken: match[1],
           });
           document.cookie = `accessToken=${data.accessToken}; path=/`;

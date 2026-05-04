@@ -3,43 +3,193 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import api from '@/lib/api';
+import { TrophyIcon, MapPinIconFull, CrownIcon, ArrowRightIcon } from '@/components/Icons';
 
-const MEDAL_BG = {
-  0: 'bg-yellow-50 border-yellow-400',
-  1: 'bg-gray-50 border-gray-400',
-  2: 'bg-orange-50 border-orange-400',
+const MEDAL_STYLES = {
+  1: {
+    border: 'border-gold-400',
+    bg: 'bg-gradient-to-br from-gold-50 to-amber-50',
+    badge: 'bg-gradient-to-br from-gold-400 to-amber-500 text-white',
+    ring: 'ring-gold-200',
+    label: '1st',
+  },
+  2: {
+    border: 'border-gray-300',
+    bg: 'bg-gradient-to-br from-gray-50 to-slate-50',
+    badge: 'bg-gradient-to-br from-gray-400 to-slate-500 text-white',
+    ring: 'ring-gray-200',
+    label: '2nd',
+  },
+  3: {
+    border: 'border-bronze-400',
+    bg: 'bg-gradient-to-br from-bronze-50 to-orange-50',
+    badge: 'bg-gradient-to-br from-bronze-400 to-bronze-500 text-white',
+    ring: 'ring-bronze-200',
+    label: '3rd',
+  },
 };
 
-export default function Top10Highlight() {
-  const [top10, setTop10] = useState([]);
+function ScoreBar({ score, max = 100 }) {
+  const pct = Math.min((score / max) * 100, 100);
+  return (
+    <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1.5">
+      <div
+        className="h-1.5 rounded-full bg-gradient-to-r from-navy-400 to-navy-600 transition-all duration-700"
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  );
+}
 
-  useEffect(() => {
-    api.get('/api/ranking/top10').then(({ data }) => setTop10(data));
-  }, []);
+function TopCard({ rank, school, totalScore }) {
+  const style = MEDAL_STYLES[rank];
+  const isFirst = rank === 1;
 
   return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold mb-3">🏆 Top 10 โรงเรียน</h2>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {top10.map((r, i) => (
-          <Link
+    <Link
+      href={`/schools/${school.id}`}
+      className={`group relative flex flex-col rounded-2xl border-2 ${style.border} ${style.bg} p-5 sm:p-6 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 ring-1 ${style.ring}`}
+    >
+      {/* Rank badge */}
+      <div className="flex items-center justify-between mb-4">
+        <div
+          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${style.badge} shadow-sm`}
+        >
+          {isFirst && <CrownIcon className="w-3.5 h-3.5" />}
+          {style.label}
+        </div>
+        {isFirst && (
+          <TrophyIcon className="w-6 h-6 text-gold-500 opacity-60" />
+        )}
+      </div>
+
+      {/* School info */}
+      <h3
+        className={`font-bold text-gray-900 leading-snug group-hover:text-navy-700 transition-colors ${
+          isFirst ? 'text-lg sm:text-xl' : 'text-base'
+        }`}
+      >
+        {school.name}
+      </h3>
+      {school.nameEn?.trim() && (
+        <p className="text-xs text-gray-500 mt-0.5 truncate">{school.nameEn}</p>
+      )}
+
+      {/* Location */}
+      <div className="flex items-center gap-1.5 mt-3 text-xs text-gray-500">
+        <MapPinIconFull className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+        <span>{school.province}</span>
+      </div>
+
+      {/* Score */}
+      <div className="mt-4">
+        <div className="flex items-baseline gap-1.5">
+          <span className={`font-bold text-gray-900 ${isFirst ? 'text-2xl' : 'text-xl'}`}>
+            {totalScore?.toFixed(2)}
+          </span>
+          <span className="text-xs text-gray-500">คะแนน</span>
+        </div>
+        <ScoreBar score={totalScore} />
+      </div>
+
+      {/* CTA */}
+      <div className="mt-4 pt-3 border-t border-gray-200/60 flex items-center gap-1.5 text-xs font-medium text-navy-600 group-hover:text-navy-700 transition-colors">
+        ดูรายละเอียด
+        <ArrowRightIcon className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+      </div>
+    </Link>
+  );
+}
+
+function RunnerUpCard({ rank, school, totalScore }) {
+  return (
+    <Link
+      href={`/schools/${school.id}`}
+      className="group flex items-center gap-4 rounded-xl bg-white border border-gray-100 p-4 transition-all duration-200 hover:shadow-card-hover hover:border-gray-200"
+    >
+      <div className="shrink-0 w-10 h-10 rounded-full bg-navy-50 text-navy-700 flex items-center justify-center text-sm font-bold">
+        {rank}
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-navy-700 transition-colors">
+          {school.name}
+        </h4>
+        <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
+          <MapPinIconFull className="w-3 h-3 text-gray-400 shrink-0" />
+          <span className="truncate">{school.province}</span>
+        </div>
+      </div>
+      <div className="shrink-0 text-right">
+        <span className="text-sm font-bold text-gray-900">{totalScore?.toFixed(2)}</span>
+        <span className="block text-[10px] text-gray-500">คะแนน</span>
+      </div>
+    </Link>
+  );
+}
+
+export default function TopSchoolsPodium() {
+  const [top10, setTop10] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api
+      .get('/api/ranking/top10')
+      .then(({ data }) => setTop10(data))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className={`rounded-2xl shimmer-bg ${i === 0 ? 'h-64' : 'h-56'}`} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!top10.length) return null;
+
+  const top3 = top10.slice(0, 3);
+  const rest = top10.slice(3);
+
+  return (
+    <section className="mb-10 animate-fade-in">
+      {/* Section header */}
+      <div className="flex items-center gap-2.5 mb-5">
+        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gold-100 text-gold-600">
+          <TrophyIcon className="w-5 h-5" />
+        </div>
+        <h2 className="text-xl font-bold text-gray-900">Top 10 โรงเรียน</h2>
+      </div>
+
+      {/* Top 3 podium */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        {top3.map((r) => (
+          <TopCard
             key={r.id}
-            href={`/schools/${r.school.id}`}
-            className={`block border-l-4 rounded p-3 text-sm transition hover:ring-2 hover:ring-blue-200 ${MEDAL_BG[i] || 'bg-white border-gray-200'}`}
-          >
-            <div className="font-bold text-lg">#{r.rank}</div>
-            <div className="font-medium truncate text-blue-800" title={r.school.nameEn || undefined}>
-              {r.school.name}
-            </div>
-            {r.school.nameEn?.trim() ? (
-              <div className="text-gray-500 text-xs truncate">{r.school.nameEn}</div>
-            ) : null}
-            <div className="text-gray-500 text-xs">{r.school.province}</div>
-            <div className="mt-1 font-semibold">{r.totalScore?.toFixed(2)} คะแนน</div>
-            <span className="mt-2 inline-block text-xs text-blue-600">ดูรายละเอียด →</span>
-          </Link>
+            rank={r.rank}
+            school={r.school}
+            totalScore={r.totalScore}
+          />
         ))}
       </div>
-    </div>
+
+      {/* Ranks 4-10 */}
+      {rest.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {rest.map((r) => (
+            <RunnerUpCard
+              key={r.id}
+              rank={r.rank}
+              school={r.school}
+              totalScore={r.totalScore}
+            />
+          ))}
+        </div>
+      )}
+    </section>
   );
 }

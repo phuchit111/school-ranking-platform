@@ -9,6 +9,16 @@ import ProfileBanner from '@/components/school/ProfileBanner';
 import ProfileGallery from '@/components/school/ProfileGallery';
 import ProfileCertificates from '@/components/school/ProfileCertificates';
 import ProfileContact from '@/components/school/ProfileContact';
+import {
+  AwardIcon,
+  ClipboardIcon,
+  CameraIcon,
+  TrophyIcon,
+  PhoneIcon,
+  SchoolIcon,
+  AlertTriangleIcon,
+  ArrowLeftIcon,
+} from '@/components/Icons';
 
 export default function SchoolProfilePage() {
   const params = useParams();
@@ -51,10 +61,14 @@ export default function SchoolProfilePage() {
   const style = level ? getLevelStyle(level) : null;
 
   return (
-    <main className="min-h-screen bg-gray-50 pb-16">
+    <main className="min-h-screen bg-[#FAFAFA] pb-16">
       <div className="max-w-5xl mx-auto px-4 pt-4 text-sm">
-        <Link href="/" className="text-blue-600 hover:underline">
-          ← กลับไปอันดับโรงเรียน
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-navy-600 hover:text-navy-800 transition-colors font-medium"
+        >
+          <ArrowLeftIcon className="w-3.5 h-3.5" />
+          กลับไปอันดับโรงเรียน
         </Link>
       </div>
 
@@ -62,7 +76,7 @@ export default function SchoolProfilePage() {
 
       <div className="max-w-5xl mx-auto px-4 mt-8 grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <Section title="ระดับผลการประเมิน" icon="🏅">
+          <Section title="ระดับผลการประเมิน" icon={<AwardIcon className="w-4 h-4" />}>
             {level && style ? (
               <div className="flex flex-wrap items-center gap-4">
                 <div
@@ -93,7 +107,7 @@ export default function SchoolProfilePage() {
             <LevelLegend current={level} />
           </Section>
 
-          <Section title="คำอธิบายโรงเรียน" icon="📝">
+          <Section title="คำอธิบายโรงเรียน" icon={<ClipboardIcon className="w-4 h-4" />}>
             {school.description ? (
               <p className="text-gray-800 leading-relaxed whitespace-pre-line">
                 {school.description}
@@ -103,17 +117,17 @@ export default function SchoolProfilePage() {
             )}
           </Section>
 
-          <Section title="กิจกรรม Smart Classroom" icon="📸" hint="(สูงสุด 5 ภาพ)">
+          <Section title="กิจกรรม Smart Classroom" icon={<CameraIcon className="w-4 h-4" />} hint="(สูงสุด 5 ภาพ)">
             <ProfileGallery images={school.galleryImages || []} />
           </Section>
 
-          <Section title="ใบรับรองและโล่รางวัล" icon="🏆">
+          <Section title="ใบรับรองและโล่รางวัล" icon={<TrophyIcon className="w-4 h-4" />}>
             <ProfileCertificates certificates={school.certificates || []} />
           </Section>
         </div>
 
         <aside className="space-y-6">
-          <Section title="ข้อมูลติดต่อ" icon="📞">
+          <Section title="ข้อมูลติดต่อ" icon={<PhoneIcon className="w-4 h-4" />}>
             <ProfileContact school={school} />
           </Section>
         </aside>
@@ -124,12 +138,12 @@ export default function SchoolProfilePage() {
 
 function Section({ title, icon, hint, children }) {
   return (
-    <section className="bg-white border border-gray-100 rounded-2xl shadow-sm p-5 sm:p-6">
-      <div className="flex items-baseline gap-2 mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">
-          <span className="mr-2" aria-hidden>{icon}</span>
-          {title}
-        </h2>
+    <section className="bg-white border border-gray-100 rounded-2xl shadow-card p-5 sm:p-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-navy-50 text-navy-600 shrink-0">
+          {icon}
+        </div>
+        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
         {hint ? <span className="text-xs text-gray-500">{hint}</span> : null}
       </div>
       {children}
@@ -167,7 +181,7 @@ function LevelRecognition({ style }) {
       <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-gray-700">
         {style.documents.map((item) => (
           <li key={item} className="flex items-start gap-2">
-            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-500 shrink-0" />
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-navy-500 shrink-0" />
             <span>{item}</span>
           </li>
         ))}
@@ -185,7 +199,7 @@ function LevelRecognition({ style }) {
 
 function ProfileSkeleton() {
   return (
-    <main className="min-h-screen bg-gray-50 pb-16 animate-pulse">
+    <main className="min-h-screen bg-[#FAFAFA] pb-16 animate-pulse">
       <div className="w-full aspect-[16/5] bg-gray-200 rounded-b-2xl" />
       <div className="max-w-5xl mx-auto px-4 -mt-12 relative">
         <div className="bg-white rounded-2xl shadow border h-32" />
@@ -204,17 +218,20 @@ function ProfileSkeleton() {
 
 function NotFoundView() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4">
       <div className="text-center">
-        <div className="text-6xl mb-3" aria-hidden>🏫</div>
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-100 text-gray-400 mb-4">
+          <SchoolIcon className="w-8 h-8" />
+        </div>
         <h1 className="text-2xl font-bold text-gray-900">ไม่พบหน้าโรงเรียนนี้</h1>
         <p className="text-gray-600 mt-2">
           อาจถูกลบ หรือยังไม่ได้รับการเผยแพร่ในระบบ
         </p>
         <Link
           href="/"
-          className="inline-block mt-6 bg-blue-600 text-white text-sm rounded-lg px-4 py-2 hover:bg-blue-700"
+          className="inline-flex items-center gap-1.5 mt-6 bg-navy-500 text-white text-sm rounded-xl px-5 py-2.5 hover:bg-navy-600 transition-colors font-medium"
         >
+          <ArrowLeftIcon className="w-3.5 h-3.5" />
           กลับไปอันดับโรงเรียน
         </Link>
       </div>
@@ -224,10 +241,13 @@ function NotFoundView() {
 
 function ErrorView() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4">
       <div className="text-center">
-        <div className="text-2xl mb-2">⚠️</div>
-        <p className="text-gray-700">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-50 text-red-400 mb-4">
+          <AlertTriangleIcon className="w-8 h-8" />
+        </div>
+        <p className="text-gray-700 font-medium">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>
+        <p className="text-sm text-gray-500 mt-1">กรุณาลองใหม่อีกครั้ง</p>
       </div>
     </main>
   );

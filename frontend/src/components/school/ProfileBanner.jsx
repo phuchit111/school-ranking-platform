@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { resolveAssetUrl } from '@/lib/assets';
 import { getLevelStyle } from '@/lib/level';
+import { MapPinIconFull, BuildingIcon, AcademicCapIcon, SchoolIcon } from '@/components/Icons';
 
 export default function ProfileBanner({ school }) {
   const bannerUrl = resolveAssetUrl(school.bannerUrl);
@@ -12,7 +13,7 @@ export default function ProfileBanner({ school }) {
 
   return (
     <section className="relative">
-      <div className="relative w-full aspect-[16/5] sm:aspect-[16/4] bg-gradient-to-br from-blue-100 via-sky-100 to-indigo-100 overflow-hidden rounded-b-2xl">
+      <div className="relative w-full aspect-[16/5] sm:aspect-[16/4] bg-gradient-to-br from-navy-100 via-sky-100 to-indigo-100 overflow-hidden rounded-b-2xl">
         {bannerUrl ? (
           <Image
             src={bannerUrl}
@@ -24,7 +25,7 @@ export default function ProfileBanner({ school }) {
             unoptimized
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-blue-300 text-sm">
+          <div className="absolute inset-0 flex items-center justify-center text-navy-200 text-sm">
             ยังไม่มีภาพแบนเนอร์
           </div>
         )}
@@ -44,8 +45,8 @@ export default function ProfileBanner({ school }) {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 -mt-12 sm:-mt-16 relative z-10">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 sm:p-6 flex flex-col sm:flex-row gap-5 sm:items-center">
-          <div className="shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl border bg-white flex items-center justify-center overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-elevated border border-gray-100 p-5 sm:p-6 flex flex-col sm:flex-row gap-5 sm:items-center">
+          <div className="shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl border border-gray-100 bg-white flex items-center justify-center overflow-hidden shadow-sm">
             {logoUrl ? (
               <Image
                 src={logoUrl}
@@ -56,7 +57,7 @@ export default function ProfileBanner({ school }) {
                 unoptimized
               />
             ) : (
-              <div className="text-3xl text-gray-300">🏫</div>
+              <SchoolIcon className="w-10 h-10 text-gray-300" />
             )}
           </div>
           <div className="flex-1 min-w-0">
@@ -67,17 +68,17 @@ export default function ProfileBanner({ school }) {
               <p className="text-sm text-gray-500 mt-0.5">{school.nameEn}</p>
             ) : null}
             <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-                <span aria-hidden>📍</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-50 text-gray-700 border border-gray-100">
+                <MapPinIconFull className="w-3.5 h-3.5 text-gray-400" />
                 {school.province}
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-                <span aria-hidden>🏛️</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-50 text-gray-700 border border-gray-100">
+                <BuildingIcon className="w-3.5 h-3.5 text-gray-400" />
                 สังกัด {school.affiliation}
               </span>
               {school.level ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-                  <span aria-hidden>🎓</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-50 text-gray-700 border border-gray-100">
+                  <AcademicCapIcon className="w-3.5 h-3.5 text-gray-400" />
                   {school.level}
                 </span>
               ) : null}

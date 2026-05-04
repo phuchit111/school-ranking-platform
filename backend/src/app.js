@@ -25,11 +25,18 @@ if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
 }
 
-const frontendOrigin = process.env.FRONTEND_URL || 'http://localhost:3007';
+/** Comma-separated for production (e.g. Vercel prod + preview): https://app.vercel.app,https://xxx-git-branch.vercel.app */
+const frontendOrigins = (process.env.FRONTEND_URL || 'http://localhost:3007')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: frontendOrigin,
+    origin:
+      frontendOrigins.length <= 1
+        ? frontendOrigins[0] || 'http://localhost:3007'
+        : frontendOrigins,
     credentials: true,
   })
 );
