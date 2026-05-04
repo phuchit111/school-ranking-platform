@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import api from '@/lib/api';
 import { toast } from 'sonner';
 
@@ -10,18 +10,18 @@ export default function SchoolAdminInvite({ schoolId }) {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  async function refreshList() {
+  const refreshList = useCallback(async () => {
     try {
       const { data } = await api.get(`/api/schools/${schoolId}/admins`);
       setList(data);
     } catch {
       toast.error('โหลดรายการผู้ดูแลโรงเรียนไม่สำเร็จ');
     }
-  }
+  }, [schoolId]);
 
   useEffect(() => {
     refreshList();
-  }, [schoolId]);
+  }, [schoolId, refreshList]);
 
   async function handleSubmit(e) {
     e.preventDefault();
