@@ -10,6 +10,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 const NAV_LINKS = [
   { href: '/', label: 'อันดับโรงเรียน' },
   { href: '/about', label: 'เกี่ยวกับโครงการ' },
+  { href: '/benefits', label: 'สิ่งที่โรงเรียนจะได้รับ' },
   { href: '/school/register', label: 'ลงทะเบียนโรงเรียน' },
 ];
 const LOGO_SRC = '/images/logo/SCEE%20%20Smart%20Classroom%20%20Equity%20Excellence.png';
