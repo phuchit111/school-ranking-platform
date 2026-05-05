@@ -4,7 +4,7 @@ Full-stack school ranking app: Next.js 14 (JavaScript), Express, PostgreSQL 16, 
 
 **ขอบเขต (1.6):** ทุกจังหวัดทั่วราชอาณาจักรไทย · กลุ่มเป้าหมาย โรงเรียนประถมศึกษาและมัธยมศึกษา ทั้งภาครัฐและเอกชน
 
-## Quick start000
+## Quick start
 
 1. Copy environment file:
 
