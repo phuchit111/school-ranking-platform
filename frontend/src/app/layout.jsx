@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="th" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-[#FAFAFA] text-gray-900 antialiased transition-colors dark:bg-gray-950 dark:text-gray-100">
+      <body className="flex min-h-screen flex-col bg-muted-50 text-main-950 antialiased transition-colors dark:bg-main-950 dark:text-muted-100">
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>

@@ -17,9 +17,9 @@ function SortIndicator({ active, direction }) {
   if (!active)
     return <ChevronDownIcon className="w-3.5 h-3.5 text-gray-300 ml-1 dark:text-gray-600" />;
   return direction === 'asc' ? (
-    <ChevronUpIcon className="w-3.5 h-3.5 text-navy-600 ml-1 dark:text-navy-300" />
+    <ChevronUpIcon className="w-3.5 h-3.5 text-accent-600 ml-1 dark:text-accent-300" />
   ) : (
-    <ChevronDownIcon className="w-3.5 h-3.5 text-navy-600 ml-1 dark:text-navy-300" />
+    <ChevronDownIcon className="w-3.5 h-3.5 text-accent-600 ml-1 dark:text-accent-300" />
   );
 }
 
@@ -32,7 +32,7 @@ function ScoreMiniBar({ score, max = 100 }) {
       </span>
       <div className="hidden sm:block w-16 bg-gray-100 rounded-full h-1.5 dark:bg-gray-700">
         <div
-          className="h-1.5 rounded-full bg-gradient-to-r from-navy-300 to-navy-500 transition-all duration-500"
+          className="h-1.5 rounded-full bg-gradient-to-r from-accent-300 to-accent-600 transition-all duration-500"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -103,7 +103,7 @@ export default function RankingTable({ filters = {} }) {
             id="ranking-page-size"
             value={limit}
             onChange={(e) => setLimit(Number(e.target.value))}
-            className="appearance-none border border-gray-200 rounded-lg px-2.5 py-1.5 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-navy-200 cursor-pointer dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:focus:ring-navy-800"
+            className="appearance-none border border-muted-200 rounded-lg px-2.5 py-1.5 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-accent-200 cursor-pointer dark:border-main-800 dark:bg-main-900 dark:text-muted-200 dark:focus:ring-accent-800"
           >
             <option value={10}>10</option>
             <option value={20}>20</option>
@@ -114,11 +114,11 @@ export default function RankingTable({ filters = {} }) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-card overflow-hidden dark:bg-gray-900/80 dark:border-gray-800">
+      <div className="bg-white rounded-2xl border border-muted-100 shadow-card overflow-hidden dark:bg-main-900/80 dark:border-main-800">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50/80 border-b border-gray-100 dark:bg-gray-800/50 dark:border-gray-800">
+              <tr className="bg-muted-50/80 border-b border-muted-100 dark:bg-main-900/50 dark:border-main-800">
                 <th
                   className="text-left px-4 sm:px-5 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wider cursor-pointer select-none hover:text-gray-700 transition-colors dark:text-gray-400 dark:hover:text-gray-200"
                   onClick={() => toggleSort('rank')}
@@ -160,15 +160,15 @@ export default function RankingTable({ filters = {} }) {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+            <tbody className="divide-y divide-muted-50 dark:divide-main-800">
               {rows.map((r) => (
                 <tr
                   key={r.id}
-                  className="group hover:bg-navy-50/30 transition-colors dark:hover:bg-navy-950/40"
+                  className="group hover:bg-accent-50/30 transition-colors dark:hover:bg-accent-950/40"
                 >
                   {/* Rank */}
                   <td className="px-4 sm:px-5 py-4">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-navy-50 text-navy-700 text-sm font-bold dark:bg-navy-900/60 dark:text-navy-200">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-accent-50 text-accent-700 text-sm font-bold dark:bg-accent-950/60 dark:text-accent-200">
                       {r.rank}
                     </span>
                   </td>
@@ -179,7 +179,7 @@ export default function RankingTable({ filters = {} }) {
                       href={`/schools/${r.school.id}`}
                       className="group/link inline-block text-left max-w-full"
                     >
-                      <span className="font-semibold text-gray-900 group-hover/link:text-navy-700 transition-colors dark:text-gray-100 dark:group-hover/link:text-navy-300">
+                      <span className="font-semibold text-gray-900 group-hover/link:text-accent-700 transition-colors dark:text-gray-100 dark:group-hover/link:text-accent-300">
                         {r.school.name}
                       </span>
                       {r.school.nameEn?.trim() && (
@@ -226,7 +226,7 @@ export default function RankingTable({ filters = {} }) {
                   <td className="px-4 sm:px-5 py-4 text-center">
                     <Link
                       href={`/schools/${r.school.id}`}
-                      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-navy-600 hover:bg-navy-50 transition-all dark:hover:bg-navy-950/50 dark:hover:text-navy-300"
+                      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-muted-400 hover:text-accent-600 hover:bg-accent-50 transition-all dark:hover:bg-accent-950/50 dark:hover:text-accent-300"
                       aria-label={`ดูรายละเอียด ${r.school.name}`}
                       title="ดูรายละเอียดโรงเรียน"
                     >

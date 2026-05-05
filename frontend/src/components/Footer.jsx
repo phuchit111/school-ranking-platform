@@ -1,46 +1,32 @@
 import Link from 'next/link';
-import { ChartBarIcon } from '@/components/Icons';
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+    <footer className="mt-auto border-t border-main-800 bg-main text-contrast dark:border-main-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          {/* Brand */}
-          <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-navy-500 text-white">
-              <ChartBarIcon className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-sm font-bold text-gray-900 tracking-tight dark:text-white">SCEE Rankings</span>
-              <p className="text-xs text-gray-500 mt-0.5 dark:text-gray-400">
-                Smart Classroom Equity Evaluation
-              </p>
-            </div>
-          </div>
-
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-end gap-6">
           {/* Links */}
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
-            <Link href="/" className="hover:text-gray-900 transition-colors dark:hover:text-white">
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-contrast/75">
+            <Link href="/" className="transition-colors hover:text-contrast">
               อันดับโรงเรียน
             </Link>
-            <Link href="/about" className="hover:text-gray-900 transition-colors dark:hover:text-white">
+            <Link href="/about" className="transition-colors hover:text-contrast">
               เกี่ยวกับโครงการ
             </Link>
-            <Link href="/school/register" className="hover:text-gray-900 transition-colors dark:hover:text-white">
+            <Link href="/school/register" className="transition-colors hover:text-contrast">
               ลงทะเบียนโรงเรียน
             </Link>
-            <Link href="/admin/login" className="hover:text-gray-900 transition-colors dark:hover:text-white">
+            <Link href="/admin/login" className="transition-colors hover:text-contrast">
               ผู้ดูแลระบบ
             </Link>
           </nav>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 dark:border-gray-800">
-          <p className="text-xs text-gray-400 dark:text-gray-500">
+        <div className="mt-8 pt-6 border-t border-contrast/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-contrast/55">
             © {new Date().getFullYear()} SCEE — ครอบคลุมทุกจังหวัดทั่วราชอาณาจักรไทย
           </p>
-          <p className="text-xs text-gray-400 dark:text-gray-500">
+          <p className="text-xs text-contrast/55">
             โรงเรียนประถมศึกษาและมัธยมศึกษา ภาครัฐและเอกชน
           </p>
         </div>

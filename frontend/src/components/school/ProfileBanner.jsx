@@ -13,7 +13,7 @@ export default function ProfileBanner({ school }) {
 
   return (
     <section className="relative">
-      <div className="relative w-full aspect-[16/5] sm:aspect-[16/4] bg-gradient-to-br from-navy-100 via-sky-100 to-indigo-100 overflow-hidden rounded-b-2xl">
+      <div className="relative w-full aspect-[16/5] sm:aspect-[16/4] bg-gradient-to-br from-muted-100 via-accent-50 to-muted-50 overflow-hidden rounded-b-2xl">
         {bannerUrl ? (
           <Image
             src={bannerUrl}
@@ -25,7 +25,7 @@ export default function ProfileBanner({ school }) {
             unoptimized
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-navy-200 text-sm">
+          <div className="absolute inset-0 flex items-center justify-center text-muted-400 text-sm">
             ยังไม่มีภาพแบนเนอร์
           </div>
         )}

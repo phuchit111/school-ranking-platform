@@ -11,7 +11,7 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       disabled={!ready}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900 disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-amber-200/90 dark:hover:bg-gray-800 dark:hover:text-amber-100"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-muted-200 bg-white text-muted-600 transition-colors hover:bg-muted-50 hover:text-main-950 disabled:opacity-40 dark:border-main-700 dark:bg-main-900 dark:text-muted-300 dark:hover:bg-main-800 dark:hover:text-contrast"
       aria-label={theme === 'dark' ? 'สลับเป็นโหมดสว่าง' : 'สลับเป็นโหมดมืด'}
       title={theme === 'dark' ? 'โหมดสว่าง' : 'โหมดมืด'}
     >

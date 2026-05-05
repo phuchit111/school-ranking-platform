@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 /** ฟิลด์พื้นขาว — บังคับสีตัวอักษรไม่ให้สืบทอด dark:text จาก body */
 const FIELD =
-  'w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-500 shadow-sm focus:border-navy-500 focus:outline-none focus:ring-2 focus:ring-navy-500/25 dark:bg-white dark:text-gray-900 dark:placeholder:text-gray-500';
+  'w-full rounded-lg border border-muted-300 bg-white px-3 py-2 text-main-950 placeholder:text-muted-500 shadow-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/25 dark:bg-white dark:text-main-950 dark:placeholder:text-muted-500';
 
 export default function SchoolRegisterPage() {
   const [loading, setLoading] = useState(false);
@@ -60,9 +60,9 @@ export default function SchoolRegisterPage() {
       <div className="mb-6">
         <Link
           href="/"
-          className="group inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm font-medium text-navy-700 shadow-sm transition-all hover:border-navy-200 hover:bg-navy-50 hover:text-navy-900 dark:border-gray-700 dark:bg-gray-900/60 dark:text-navy-200 dark:shadow-none dark:hover:border-navy-600 dark:hover:bg-navy-900/90 dark:hover:text-white"
+          className="group inline-flex items-center gap-2 rounded-xl border border-muted-200 bg-white px-3.5 py-2.5 text-sm font-medium text-accent-800 shadow-sm transition-all hover:border-accent-200 hover:bg-accent-50 hover:text-accent-950 dark:border-main-800 dark:bg-main-900/60 dark:text-accent-300 dark:shadow-none dark:hover:border-accent-700 dark:hover:bg-main-900/90 dark:hover:text-contrast"
         >
-          <ArrowLeftIcon className="h-4 w-4 shrink-0 text-navy-500 transition-transform group-hover:-translate-x-0.5 dark:text-navy-300 dark:group-hover:text-white" />
+          <ArrowLeftIcon className="h-4 w-4 shrink-0 text-accent-600 transition-transform group-hover:-translate-x-0.5 dark:text-accent-400 dark:group-hover:text-contrast" />
           กลับหน้าอันดับ
         </Link>
         <h1 className="text-2xl font-bold mt-4 text-gray-900 dark:text-white">
@@ -210,7 +210,7 @@ export default function SchoolRegisterPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-slate-800 py-2.5 text-white hover:bg-slate-900 disabled:opacity-50 dark:bg-navy-600 dark:hover:bg-navy-700"
+          className="w-full rounded-lg bg-accent-600 py-2.5 text-contrast hover:bg-accent-700 disabled:opacity-50"
         >
           {loading ? 'กำลังส่ง...' : 'ส่งคำขอ'}
         </button>

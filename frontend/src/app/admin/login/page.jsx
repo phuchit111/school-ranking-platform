@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import { setTokens } from '@/lib/auth';
 import { toast } from 'sonner';
-import { ChartBarIcon, MailIcon, EyeIcon, ArrowLeftIcon } from '@/components/Icons';
+import { MailIcon, EyeIcon, ArrowLeftIcon } from '@/components/Icons';
+
+const LOGO_SRC = '/images/logo/SCEE%20%20Smart%20Classroom%20%20Equity%20Excellence.png';
 
 function LockIcon({ className = 'w-5 h-5' }) {
   return (
@@ -59,7 +62,7 @@ export default function LoginPage() {
     <div className="relative min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center py-10 px-4 overflow-hidden">
       {/* Background */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-main-900 via-main-800 to-main-950"
         aria-hidden
       />
       <div
@@ -70,24 +73,21 @@ export default function LoginPage() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-gold-400/15 blur-3xl"
+        className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-accent-400/12 blur-3xl"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-navy-400/20 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"
         aria-hidden
       />
 
       <div className="relative z-10 w-full max-w-[420px] animate-slide-up">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.97] shadow-elevated backdrop-blur-xl dark:border-gray-700/80 dark:bg-gray-900/95">
-          <div className="border-b border-gray-100/80 px-8 pt-8 pb-6 text-center dark:border-gray-800">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-navy-600 to-navy-800 text-white shadow-lg shadow-navy-900/25">
-              <ChartBarIcon className="h-7 w-7" />
+        <div className="rounded-2xl border border-white/10 bg-white/[0.97] shadow-elevated backdrop-blur-xl dark:border-main-700/80 dark:bg-main-900/95">
+          <div className="border-b border-muted-100/80 px-8 pt-8 pb-6 text-center dark:border-main-800">
+            <div className="mx-auto mb-4 h-14 w-44">
+              <Image src={LOGO_SRC} alt="SCEE logo" width={320} height={120} className="h-full w-full object-contain" />
             </div>
             <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl dark:text-white">เข้าสู่ระบบ</h1>
-            <p className="mt-1.5 text-sm text-gray-500 dark:text-gray-400">
-              SCEE Rankings · <span className="text-navy-600 font-medium dark:text-navy-300">ผู้ดูแลระบบ</span>
-            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 px-8 pb-8 pt-2">
@@ -107,7 +107,7 @@ export default function LoginPage() {
                   value={form.email}
                   required
                   onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50/80 py-2.5 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 transition-colors focus:border-navy-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-navy-500/20 dark:border-gray-700 dark:bg-gray-950/80 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-navy-400 dark:focus:bg-gray-950 dark:focus:ring-navy-500/30"
+                  className="w-full rounded-xl border border-muted-200 bg-muted-50/80 py-2.5 pl-10 pr-3 text-main-950 placeholder:text-muted-400 transition-colors focus:border-accent-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-main-800 dark:bg-main-950/80 dark:text-muted-100 dark:placeholder:text-muted-500 dark:focus:border-accent-400 dark:focus:bg-main-950 dark:focus:ring-accent-500/30"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function LoginPage() {
                   value={form.password}
                   required
                   onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50/80 py-2.5 pl-10 pr-11 text-gray-900 placeholder:text-gray-400 transition-colors focus:border-navy-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-navy-500/20 dark:border-gray-700 dark:bg-gray-950/80 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-navy-400 dark:focus:bg-gray-950 dark:focus:ring-navy-500/30"
+                  className="w-full rounded-xl border border-muted-200 bg-muted-50/80 py-2.5 pl-10 pr-11 text-main-950 placeholder:text-muted-400 transition-colors focus:border-accent-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent-500/20 dark:border-main-800 dark:bg-main-950/80 dark:text-muted-100 dark:placeholder:text-muted-500 dark:focus:border-accent-400 dark:focus:bg-main-950 dark:focus:ring-accent-500/30"
                 />
                 <button
                   type="button"
@@ -144,18 +144,18 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-navy-600 to-navy-700 py-3 text-sm font-semibold text-white shadow-md shadow-navy-900/20 transition-all hover:from-navy-700 hover:to-navy-800 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+              className="group relative w-full overflow-hidden rounded-xl bg-accent-600 py-3 text-sm font-semibold text-contrast shadow-md shadow-accent-950/20 transition-all hover:bg-accent-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
             >
               <span className="relative z-10">
                 {loading ? 'กำลังเข้าสู่ระบบ…' : 'เข้าสู่ระบบ'}
               </span>
               <span
-                className="absolute inset-0 bg-gradient-to-r from-gold-400/0 via-gold-300/10 to-gold-400/0 opacity-0 transition-opacity group-hover:opacity-100"
+                className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 transition-opacity group-hover:opacity-100"
                 aria-hidden
               />
             </button>
 
-            <div className="flex flex-col gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:items-center sm:justify-between dark:border-gray-800">
+            <div className="flex flex-col gap-3 border-t border-muted-100 pt-5 sm:flex-row sm:items-center sm:justify-between dark:border-main-800">
               <Link
                 href="/"
                 className="inline-flex items-center justify-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 sm:justify-start dark:text-gray-400 dark:hover:text-gray-200"
@@ -165,7 +165,7 @@ export default function LoginPage() {
               </Link>
               <Link
                 href="/admin/forgot-password"
-                className="text-center text-sm font-medium text-navy-600 transition-colors hover:text-navy-800 sm:text-right dark:text-navy-300 dark:hover:text-navy-200"
+                className="text-center text-sm font-medium text-accent-600 transition-colors hover:text-accent-800 sm:text-right dark:text-accent-400 dark:hover:text-accent-300"
               >
                 ลืมรหัสผ่าน
               </Link>

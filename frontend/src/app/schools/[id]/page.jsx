@@ -61,11 +61,11 @@ export default function SchoolProfilePage() {
   const style = level ? getLevelStyle(level) : null;
 
   return (
-    <main className="min-h-screen bg-[#FAFAFA] pb-16">
+    <main className="min-h-screen bg-muted-50 pb-16 dark:bg-main-950">
       <div className="max-w-5xl mx-auto px-4 pt-4 text-sm">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-navy-600 hover:text-navy-800 transition-colors font-medium"
+          className="inline-flex items-center gap-1.5 text-accent-600 hover:text-accent-800 transition-colors font-medium"
         >
           <ArrowLeftIcon className="w-3.5 h-3.5" />
           กลับไปอันดับโรงเรียน
@@ -140,7 +140,7 @@ function Section({ title, icon, hint, children }) {
   return (
     <section className="bg-white border border-gray-100 rounded-2xl shadow-card p-5 sm:p-6">
       <div className="flex items-center gap-2.5 mb-4">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-navy-50 text-navy-600 shrink-0">
+        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-50 text-accent-600 shrink-0">
           {icon}
         </div>
         <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
@@ -181,7 +181,7 @@ function LevelRecognition({ style }) {
       <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-gray-700">
         {style.documents.map((item) => (
           <li key={item} className="flex items-start gap-2">
-            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-navy-500 shrink-0" />
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent-600 shrink-0" />
             <span>{item}</span>
           </li>
         ))}
@@ -199,7 +199,7 @@ function LevelRecognition({ style }) {
 
 function ProfileSkeleton() {
   return (
-    <main className="min-h-screen bg-[#FAFAFA] pb-16 animate-pulse">
+    <main className="min-h-screen bg-muted-50 pb-16 animate-pulse dark:bg-main-950">
       <div className="w-full aspect-[16/5] bg-gray-200 rounded-b-2xl" />
       <div className="max-w-5xl mx-auto px-4 -mt-12 relative">
         <div className="bg-white rounded-2xl shadow border h-32" />
@@ -218,9 +218,9 @@ function ProfileSkeleton() {
 
 function NotFoundView() {
   return (
-    <main className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-muted-50 flex items-center justify-center px-4 dark:bg-main-950">
       <div className="text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-100 text-gray-400 mb-4">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted-100 text-muted-400 mb-4">
           <SchoolIcon className="w-8 h-8" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">ไม่พบหน้าโรงเรียนนี้</h1>
@@ -229,7 +229,7 @@ function NotFoundView() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 mt-6 bg-navy-500 text-white text-sm rounded-xl px-5 py-2.5 hover:bg-navy-600 transition-colors font-medium"
+          className="inline-flex items-center gap-1.5 mt-6 bg-accent-600 text-contrast text-sm rounded-xl px-5 py-2.5 hover:bg-accent-700 transition-colors font-medium"
         >
           <ArrowLeftIcon className="w-3.5 h-3.5" />
           กลับไปอันดับโรงเรียน
@@ -241,7 +241,7 @@ function NotFoundView() {
 
 function ErrorView() {
   return (
-    <main className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-muted-50 flex items-center justify-center px-4 dark:bg-main-950">
       <div className="text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-50 text-red-400 mb-4">
           <AlertTriangleIcon className="w-8 h-8" />

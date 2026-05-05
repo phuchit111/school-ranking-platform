@@ -17,12 +17,12 @@ function ensureUrl(value) {
 function Row({ icon, label, children }) {
   return (
     <div className="flex items-start gap-3 text-sm">
-      <span className="shrink-0 inline-flex w-8 h-8 items-center justify-center rounded-lg bg-navy-50 text-navy-600">
+      <span className="shrink-0 inline-flex w-8 h-8 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
         {icon}
       </span>
       <div className="min-w-0">
-        <div className="text-xs uppercase tracking-wider text-gray-500 font-medium">{label}</div>
-        <div className="text-gray-800 break-words mt-0.5">{children}</div>
+        <div className="text-xs uppercase tracking-wider text-muted-500 font-medium">{label}</div>
+        <div className="text-main-900 break-words mt-0.5">{children}</div>
       </div>
     </div>
   );
@@ -53,7 +53,7 @@ export default function ProfileContact({ school }) {
       ) : null}
       {school.phone ? (
         <Row icon={<PhoneIcon className="w-4 h-4" />} label="โทรศัพท์">
-          <a href={`tel:${school.phone}`} className="text-navy-700 hover:underline">
+          <a href={`tel:${school.phone}`} className="text-accent-700 hover:underline">
             {school.phone}
           </a>
         </Row>
@@ -64,7 +64,7 @@ export default function ProfileContact({ school }) {
             href={websiteUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-navy-700 hover:underline break-all"
+            className="text-accent-700 hover:underline break-all"
           >
             {school.website}
           </a>
@@ -76,7 +76,7 @@ export default function ProfileContact({ school }) {
             href={facebookUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-navy-700 hover:underline break-all"
+            className="text-accent-700 hover:underline break-all"
           >
             {school.facebookUrl}
           </a>

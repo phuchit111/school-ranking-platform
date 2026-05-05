@@ -29,7 +29,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-800 via-navy-700 to-navy-900">
+      <section className="relative overflow-hidden bg-gradient-to-br from-main-700 via-main-800 to-main-950">
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -39,14 +39,14 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2.5 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/[0.18] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+            className="group inline-flex items-center gap-2.5 rounded-xl border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/[0.18] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-main-900"
           >
-            <ArrowLeftIcon className="h-5 w-5 shrink-0 text-gold-300/90 transition-transform group-hover:-translate-x-1 group-hover:text-gold-200" />
+            <ArrowLeftIcon className="h-5 w-5 shrink-0 text-accent-200/90 transition-transform group-hover:-translate-x-1 group-hover:text-accent-100" />
             กลับหน้าอันดับ
           </Link>
           <div className="mt-6 flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 backdrop-blur-sm">
-              <ChartBarIcon className="h-7 w-7 text-gold-300" />
+              <ChartBarIcon className="h-7 w-7 text-accent-300" />
             </div>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-white/60">SCEE Rankings</p>
@@ -64,7 +64,7 @@ export default function AboutPage() {
           <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-8 w-full sm:h-12">
             <path
               d="M0 48h1440V24c-240-32-480-32-720 0S240-8 0 24v24z"
-              className="fill-[#FAFAFA] dark:fill-gray-950"
+              className="fill-muted-50 dark:fill-main-950"
             />
           </svg>
         </div>
@@ -74,26 +74,26 @@ export default function AboutPage() {
         {/* วัตถุประสงค์ */}
         <section className="animate-fade-in">
           <h2 className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-navy-100 text-navy-700 dark:bg-navy-900/50 dark:text-navy-200">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-100 text-accent-800 dark:bg-accent-950/50 dark:text-accent-200">
               <SchoolIcon className="h-5 w-5" />
             </span>
             วัตถุประสงค์
           </h2>
           <ul className="mt-5 space-y-3 text-gray-700 dark:text-gray-300">
             <li className="flex gap-3">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
               <span>
                 สะท้อนความพร้อมของโรงเรียนในการจัดการเรียนการสอนด้วยห้องเรียนอัจฉริยะ และการใช้เทคโนโลยีแบบโต้ตอบอย่างเป็นระบบ
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
               <span>
                 วัดความเสมอภาคในการเข้าถึงการเรียนรู้ของผู้เรียน ไม่ให้เกิดช่องว่างระหว่างโรงเรียนหรือกลุ่มผู้เรียน
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
               <span>
                 จัดทำอันดับและข้อมูลเปรียบเทียบที่โปร่งใส เพื่อใช้เป็นข้อมูลประกอบการพัฒนานโยบายและการสนับสนุนโรงเรียน
               </span>
@@ -130,7 +130,7 @@ export default function AboutPage() {
                 className="rounded-xl border border-gray-100 bg-gray-50/80 p-4 dark:border-gray-800 dark:bg-gray-900/40"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-navy-600 text-sm font-bold text-white">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-main text-sm font-bold text-contrast">
                     {c.letter}
                   </span>
                   <div>
@@ -170,12 +170,12 @@ export default function AboutPage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 px-6 py-8 text-center text-white">
+        <section className="rounded-2xl bg-gradient-to-br from-main-700 to-main-950 px-6 py-8 text-center text-contrast">
           <p className="text-lg font-semibold">พร้อมดูอันดับหรือลงทะเบียนโรงเรียน?</p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-navy-800 shadow-md transition hover:bg-gold-50"
+              className="inline-flex items-center justify-center rounded-xl bg-contrast px-5 py-2.5 text-sm font-semibold text-main-900 shadow-md transition hover:bg-accent-50"
             >
               ดูอันดับโรงเรียน
             </Link>
