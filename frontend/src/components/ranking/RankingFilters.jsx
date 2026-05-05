@@ -45,7 +45,7 @@ export default function RankingFilters({ onChange }) {
   const activeCount = [filters.province, filters.sector, filters.level].filter(Boolean).length;
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-card p-4 sm:p-5 mb-8">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-card p-4 sm:p-5 mb-8 dark:bg-gray-900/80 dark:border-gray-800">
       {/* Search + Filter header */}
       <div className="flex flex-col sm:flex-row gap-3">
         {/* Search */}
@@ -56,14 +56,14 @@ export default function RankingFilters({ onChange }) {
             placeholder="ค้นหาโรงเรียน..."
             value={filters.search}
             onChange={(e) => update('search', e.target.value)}
-            className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all"
+            className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all dark:border-gray-700 dark:bg-gray-950/50 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:ring-navy-800 dark:focus:border-navy-600"
             id="ranking-search"
           />
           {filters.search && (
             <button
               type="button"
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-200 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-200 transition-colors dark:hover:bg-gray-700 dark:hover:text-gray-300"
               aria-label="Clear search"
             >
               <XIcon className="w-3.5 h-3.5" />
@@ -72,7 +72,7 @@ export default function RankingFilters({ onChange }) {
         </div>
 
         {/* Filter badge */}
-        <div className="hidden sm:flex items-center gap-1.5 text-xs text-gray-500 px-3 py-2 rounded-xl bg-gray-50 border border-gray-100">
+        <div className="hidden sm:flex items-center gap-1.5 text-xs text-gray-500 px-3 py-2 rounded-xl bg-gray-50 border border-gray-100 dark:bg-gray-950/50 dark:border-gray-800 dark:text-gray-400">
           <FilterIcon className="w-4 h-4 text-gray-400" />
           <span>ตัวกรอง</span>
           {activeCount > 0 && (
@@ -89,7 +89,7 @@ export default function RankingFilters({ onChange }) {
           <select
             value={filters.province}
             onChange={(e) => update('province', e.target.value)}
-            className="appearance-none pl-3 pr-8 py-2 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all cursor-pointer"
+            className="appearance-none pl-3 pr-8 py-2 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all cursor-pointer dark:border-gray-700 dark:bg-gray-950/50 dark:text-gray-200 dark:focus:ring-navy-800"
             id="filter-province"
           >
             {PROVINCE_FILTER_OPTIONS.map((o) => (
@@ -105,7 +105,7 @@ export default function RankingFilters({ onChange }) {
           <select
             value={filters.level}
             onChange={(e) => update('level', e.target.value)}
-            className="appearance-none pl-3 pr-8 py-2 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all cursor-pointer"
+            className="appearance-none pl-3 pr-8 py-2 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all cursor-pointer dark:border-gray-700 dark:bg-gray-950/50 dark:text-gray-200 dark:focus:ring-navy-800"
             id="filter-level"
           >
             {LEVEL_OPTIONS.map((o) => (
@@ -121,7 +121,7 @@ export default function RankingFilters({ onChange }) {
           <select
             value={filters.sector}
             onChange={(e) => update('sector', e.target.value)}
-            className="appearance-none pl-3 pr-8 py-2 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all cursor-pointer"
+            className="appearance-none pl-3 pr-8 py-2 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-navy-200 focus:border-navy-300 transition-all cursor-pointer dark:border-gray-700 dark:bg-gray-950/50 dark:text-gray-200 dark:focus:ring-navy-800"
             id="filter-sector"
           >
             {SECTOR_OPTIONS.map((o) => (
@@ -136,9 +136,9 @@ export default function RankingFilters({ onChange }) {
 
       {/* Active filter chips */}
       {activeCount > 0 && (
-        <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-100">
+        <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
           {filters.province && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 text-xs font-medium">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 text-xs font-medium dark:bg-navy-950/60 dark:text-navy-200">
               {PROVINCE_FILTER_OPTIONS.find((o) => o.value === filters.province)?.label}
               <button type="button" onClick={() => update('province', '')} className="hover:text-navy-900 transition-colors" aria-label="Remove province filter">
                 <XIcon className="w-3 h-3" />
@@ -146,7 +146,7 @@ export default function RankingFilters({ onChange }) {
             </span>
           )}
           {filters.level && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 text-xs font-medium">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 text-xs font-medium dark:bg-navy-950/60 dark:text-navy-200">
               {LEVEL_OPTIONS.find((o) => o.value === filters.level)?.label}
               <button type="button" onClick={() => update('level', '')} className="hover:text-navy-900 transition-colors" aria-label="Remove level filter">
                 <XIcon className="w-3 h-3" />
@@ -154,7 +154,7 @@ export default function RankingFilters({ onChange }) {
             </span>
           )}
           {filters.sector && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 text-xs font-medium">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 text-xs font-medium dark:bg-navy-950/60 dark:text-navy-200">
               {SECTOR_OPTIONS.find((o) => o.value === filters.sector)?.label}
               <button type="button" onClick={() => update('sector', '')} className="hover:text-navy-900 transition-colors" aria-label="Remove sector filter">
                 <XIcon className="w-3 h-3" />

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import {
-  PILOT_PROVINCE_OPTIONS,
+  THAILAND_PROVINCE_OPTIONS,
   AFFILIATION_GROUPS,
   flattenAffiliationValues,
 } from '@/lib/scope';
@@ -17,10 +17,10 @@ export default function SchoolForm({
   const allowedAff = flattenAffiliationValues();
 
   const provinceChoices = useMemo(() => {
-    const opts = [...PILOT_PROVINCE_OPTIONS];
+    const opts = [...THAILAND_PROVINCE_OPTIONS];
     const p = initial.province;
     if (p && !opts.some((o) => o.value === p)) {
-      opts.push({ value: p, label: `${p} (ข้อมูลเดิม — นอกขอบเขตนำร่อง)` });
+      opts.push({ value: p, label: `${p} (ข้อมูลเดิม — ไม่อยู่ในรายการมาตรฐาน)` });
     }
     return opts;
   }, [initial.province]);

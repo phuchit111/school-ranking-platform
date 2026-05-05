@@ -12,23 +12,28 @@
   }
 
   body {
-    @apply bg-[#FAFAFA] text-gray-900 font-sans;
+    @apply bg-[#FAFAFA] text-gray-900 font-sans dark:bg-gray-950 dark:text-gray-100;
   }
 
   ::selection {
-    @apply bg-navy-200 text-navy-900;
+    @apply bg-navy-200 text-navy-900 dark:bg-navy-700 dark:text-white;
   }
 }
 
 @layer components {
   .glass-nav {
-    @apply bg-white/80 backdrop-blur-lg border-b border-gray-200/60;
+    @apply bg-white/80 backdrop-blur-lg border-b border-gray-200/60 dark:bg-gray-950/80 dark:border-gray-800/80;
   }
 
   .shimmer-bg {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;
     animation: shimmer 2s infinite linear;
+  }
+
+  .dark .shimmer-bg {
+    background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+    background-size: 200% 100%;
   }
 }
 
@@ -49,9 +54,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-full;
+  @apply bg-gray-300 rounded-full dark:bg-gray-600;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400;
+  @apply bg-gray-400 dark:bg-gray-500;
 }

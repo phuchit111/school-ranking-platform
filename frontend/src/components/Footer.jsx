@@ -3,7 +3,7 @@ import { ChartBarIcon } from '@/components/Icons';
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-gray-200 bg-white">
+    <footer className="mt-auto border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           {/* Brand */}
@@ -12,32 +12,35 @@ export default function Footer() {
               <ChartBarIcon className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-sm font-bold text-gray-900 tracking-tight">SCEE Rankings</span>
-              <p className="text-xs text-gray-500 mt-0.5">
+              <span className="text-sm font-bold text-gray-900 tracking-tight dark:text-white">SCEE Rankings</span>
+              <p className="text-xs text-gray-500 mt-0.5 dark:text-gray-400">
                 Smart Classroom Equity Evaluation
               </p>
             </div>
           </div>
 
           {/* Links */}
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500">
-            <Link href="/" className="hover:text-gray-900 transition-colors">
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
+            <Link href="/" className="hover:text-gray-900 transition-colors dark:hover:text-white">
               อันดับโรงเรียน
             </Link>
-            <Link href="/school/register" className="hover:text-gray-900 transition-colors">
+            <Link href="/about" className="hover:text-gray-900 transition-colors dark:hover:text-white">
+              เกี่ยวกับโครงการ
+            </Link>
+            <Link href="/school/register" className="hover:text-gray-900 transition-colors dark:hover:text-white">
               ลงทะเบียนโรงเรียน
             </Link>
-            <Link href="/admin/login" className="hover:text-gray-900 transition-colors">
+            <Link href="/admin/login" className="hover:text-gray-900 transition-colors dark:hover:text-white">
               ผู้ดูแลระบบ
             </Link>
           </nav>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-gray-400">
-            © {new Date().getFullYear()} SCEE — พื้นที่นำร่อง กรุงเทพมหานคร และจังหวัดสมุทรปราการ
+        <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 dark:border-gray-800">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            © {new Date().getFullYear()} SCEE — ครอบคลุมทุกจังหวัดทั่วราชอาณาจักรไทย
           </p>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
             โรงเรียนประถมศึกษาและมัธยมศึกษา ภาครัฐและเอกชน
           </p>
         </div>

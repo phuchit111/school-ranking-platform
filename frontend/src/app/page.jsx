@@ -23,7 +23,7 @@ export default function HomePage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-xs font-medium text-white/80 mb-6">
               <SchoolIcon className="w-3.5 h-3.5" />
-              พื้นที่นำร่อง กรุงเทพมหานคร และจังหวัดสมุทรปราการ
+              ครอบคลุมทุกจังหวัดทั่วราชอาณาจักรไทย
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight text-balance">
@@ -59,7 +59,10 @@ export default function HomePage() {
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-8 sm:h-12">
-            <path d="M0 48h1440V24c-240-32-480-32-720 0S240-8 0 24v24z" fill="#FAFAFA" />
+            <path
+              d="M0 48h1440V24c-240-32-480-32-720 0S240-8 0 24v24z"
+              className="fill-[#FAFAFA] dark:fill-gray-950"
+            />
           </svg>
         </div>
       </section>

@@ -32,7 +32,7 @@ const MEDAL_STYLES = {
 function ScoreBar({ score, max = 100 }) {
   const pct = Math.min((score / max) * 100, 100);
   return (
-    <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1.5">
+    <div className="w-full bg-gray-200/90 rounded-full h-1.5 mt-1.5">
       <div
         className="h-1.5 rounded-full bg-gradient-to-r from-navy-400 to-navy-600 transition-all duration-700"
         style={{ width: `${pct}%` }}
@@ -63,21 +63,21 @@ function TopCard({ rank, school, totalScore }) {
         )}
       </div>
 
-      {/* School info */}
+      {/* School info — พื้นการ์ดยังเป็นสีอ่อนในโหมดมืด จึงใช้ตัวอักษรโทนเข้มเสมอ */}
       <h3
-        className={`font-bold text-gray-900 leading-snug group-hover:text-navy-700 transition-colors ${
+        className={`font-bold text-gray-900 leading-snug group-hover:text-navy-800 transition-colors ${
           isFirst ? 'text-lg sm:text-xl' : 'text-base'
         }`}
       >
         {school.name}
       </h3>
       {school.nameEn?.trim() && (
-        <p className="text-xs text-gray-500 mt-0.5 truncate">{school.nameEn}</p>
+        <p className="text-xs text-gray-600 mt-0.5 truncate">{school.nameEn}</p>
       )}
 
       {/* Location */}
-      <div className="flex items-center gap-1.5 mt-3 text-xs text-gray-500">
-        <MapPinIconFull className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+      <div className="flex items-center gap-1.5 mt-3 text-xs text-gray-600">
+        <MapPinIconFull className="w-3.5 h-3.5 text-gray-500 shrink-0" />
         <span>{school.province}</span>
       </div>
 
@@ -87,13 +87,13 @@ function TopCard({ rank, school, totalScore }) {
           <span className={`font-bold text-gray-900 ${isFirst ? 'text-2xl' : 'text-xl'}`}>
             {totalScore?.toFixed(2)}
           </span>
-          <span className="text-xs text-gray-500">คะแนน</span>
+          <span className="text-xs text-gray-600">คะแนน</span>
         </div>
         <ScoreBar score={totalScore} />
       </div>
 
       {/* CTA */}
-      <div className="mt-4 pt-3 border-t border-gray-200/60 flex items-center gap-1.5 text-xs font-medium text-navy-600 group-hover:text-navy-700 transition-colors">
+      <div className="mt-4 pt-3 border-t border-gray-200/80 flex items-center gap-1.5 text-xs font-medium text-navy-700 group-hover:text-navy-900 transition-colors">
         ดูรายละเอียด
         <ArrowRightIcon className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
       </div>
@@ -105,13 +105,13 @@ function RunnerUpCard({ rank, school, totalScore }) {
   return (
     <Link
       href={`/schools/${school.id}`}
-      className="group flex items-center gap-4 rounded-xl bg-white border border-gray-100 p-4 transition-all duration-200 hover:shadow-card-hover hover:border-gray-200"
+      className="group flex items-center gap-4 rounded-xl bg-white border border-gray-100 p-4 transition-all duration-200 hover:shadow-card-hover hover:border-gray-200 dark:bg-gray-900/70 dark:border-gray-800 dark:hover:border-gray-700"
     >
-      <div className="shrink-0 w-10 h-10 rounded-full bg-navy-50 text-navy-700 flex items-center justify-center text-sm font-bold">
+      <div className="shrink-0 w-10 h-10 rounded-full bg-navy-50 text-navy-700 flex items-center justify-center text-sm font-bold dark:bg-navy-900/60 dark:text-navy-200">
         {rank}
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-navy-700 transition-colors">
+        <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-navy-700 transition-colors dark:text-gray-100 dark:group-hover:text-navy-300">
           {school.name}
         </h4>
         <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
@@ -120,8 +120,8 @@ function RunnerUpCard({ rank, school, totalScore }) {
         </div>
       </div>
       <div className="shrink-0 text-right">
-        <span className="text-sm font-bold text-gray-900">{totalScore?.toFixed(2)}</span>
-        <span className="block text-[10px] text-gray-500">คะแนน</span>
+        <span className="text-sm font-bold text-gray-900 dark:text-white">{totalScore?.toFixed(2)}</span>
+        <span className="block text-[10px] text-gray-500 dark:text-gray-400">คะแนน</span>
       </div>
     </Link>
   );
@@ -159,10 +159,10 @@ export default function TopSchoolsPodium() {
     <section className="mb-10 animate-fade-in">
       {/* Section header */}
       <div className="flex items-center gap-2.5 mb-5">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gold-100 text-gold-600">
+        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gold-100 text-gold-600 dark:bg-gold-900/40 dark:text-gold-400">
           <TrophyIcon className="w-5 h-5" />
         </div>
-        <h2 className="text-xl font-bold text-gray-900">Top 10 โรงเรียน</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Top 10 โรงเรียน</h2>
       </div>
 
       {/* Top 3 podium */}
