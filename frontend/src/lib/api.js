@@ -5,6 +5,12 @@ const api = axios.create({
   withCredentials: true,
 });
 
+function clearAuthCookies() {
+  if (typeof document === 'undefined') return;
+  document.cookie = 'accessToken=; path=/; max-age=0';
+  document.cookie = 'refreshToken=; path=/; max-age=0';
+}
+
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     const match = document.cookie.match(/accessToken=([^;]+)/);
@@ -17,11 +23,21 @@ api.interceptors.response.use(
   (res) => res,
   async (err) => {
     if (err.response?.status === 401) {
+      const url = err.config?.url || '';
+      const skipRefresh = [
+        '/api/auth/login',
+        '/api/auth/refresh',
+        '/api/auth/forgot-password',
+        '/api/auth/reset-password',
+      ].some((path) => url.includes(path));
+      if (skipRefresh) {
+        return Promise.reject(err);
+      }
       try {
-        const url = err.config?.url || '';
-        if (url.includes('/api/auth/refresh')) {
+        if (err.config?._retry) {
           throw new Error('refresh failed');
         }
+        err.config._retry = true;
         const match = document.cookie.match(/refreshToken=([^;]+)/);
         if (match && err.config) {
           const base = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
@@ -36,6 +52,7 @@ api.interceptors.response.use(
         }
       } catch {
         if (typeof window !== 'undefined') {
+          clearAuthCookies();
           window.location.href = '/admin/login';
         }
       }
